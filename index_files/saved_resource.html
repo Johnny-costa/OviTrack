@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<!-- saved from url=(0012)about:srcdoc -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+      (function kG(){const e={log:console.log,warn:console.warn,error:console.error,info:console.info,debug:console.debug},t=[];let n="initialization",r="setup";window.onerror=function(a,l,c,d,h){const f={message:a.toString(),source:l,line:c,column:d,stack:h?h.stack:null,consoleOutput:t,executionContext:n,executionPhase:r,timestamp:new Date().toISOString()};return window.parent.postMessage({type:"runtime-error",error:f},"*"),!0},window.addEventListener("unhandledrejection",function(a){const l=a.reason;window.parent.postMessage({type:"runtime-error",error:{message:"Unhandled Promise Rejection: "+a.reason,stack:l.stack,consoleOutput:t,executionContext:n,executionPhase:r,timestamp:new Date().toISOString()}},"*")});function i(){function a(l){return function(...c){const d=c.map(g=>{if(typeof g=="object")try{return JSON.stringify(g,null,2)}catch{return String(g)}return String(g)}),h={type:l,timestamp:new Date().toISOString(),context:n,phase:r,content:d.join(" ")};t.push(h),window.parent.postMessage({type:"console-output",entry:h},"*");const f=e[l];typeof f=="function"&&f.apply(console,c)}}console.log=a("log"),console.warn=a("warn"),console.error=a("error"),console.info=a("info"),console.debug=a("debug")}function s(a){n=a}function o(a){r=a}i(),s("initialization"),o("setup"),window.addEventListener("DOMContentLoaded",()=>{o("dom-ready")}),window.addEventListener("load",()=>{o("window-load"),setTimeout(()=>{o("complete"),window.parent.postMessage({type:"execution-complete",timestamp:new Date().toISOString()},"*")},500)})})();
+    </script>
+  <script src="https://cdn.tailwindcss.com/"></script><!--<base href="https://hatchcanvas.com/_/assets/ab_MGP-2kzMcvWlcFqruRGb1/keys/">--><base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OviTrack</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiT3ZpVHJhY2siLCJzaG9ydF9uYW1lIjoiT3ZpVHJhY2siLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzAwNzk2QiIsInRoZW1lX2NvbG9yIjoiIzAwNzk2QiIsImljb25zIjpbeyJzcmMiOiJxYnFYQ2lXdXZCMHRnZ1pKQUlyZnIiLCJzaXplcyI6IjU2M3g2MjQiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiJxYnFYQ2lXdXZCMHRnZ1pKQUlyZnIiLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiJxYnFYQ2lXdXZCMHRnZ1pKQUlyZnIiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
+    <meta name="theme-color" content="#00796B">
+    <link rel="apple-touch-icon" href="https://hatchcanvas.com/_/assets/ab_MGP-2kzMcvWlcFqruRGb1/keys/qbqXCiWuvB0tggZJAIrfr">
+    
+    <!-- Leaflet CSS para mapas offline -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    
+    <!-- SheetJS para exportar XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- Google Fonts - Material Design 3 Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Material Design 3 Color Tokens */
+            --md-sys-color-primary: #006A60;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #9EF2E4;
+            --md-sys-color-on-primary-container: #00201D;
+            
+            --md-sys-color-secondary: #4A635F;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #CCE8E2;
+            --md-sys-color-on-secondary-container: #05201C;
+            
+            --md-sys-color-tertiary: #426277;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #C6E7FF;
+            --md-sys-color-on-tertiary-container: #001E2E;
+            
+            --md-sys-color-surface: #F4FBF9;
+            --md-sys-color-on-surface: #161D1B;
+            --md-sys-color-surface-variant: #DAE5E1;
+            --md-sys-color-on-surface-variant: #3F4945;
+            
+            --md-sys-color-surface-container: #EAF0EE;
+            --md-sys-color-surface-container-high: #E4EAEA;
+            --md-sys-color-surface-container-highest: #DEE5E2;
+            
+            --md-sys-color-outline: #6F7975;
+            --md-sys-color-outline-variant: #BEC9C5;
+            
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-error-container: #FFDAD6;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-on-error-container: #410002;
+            
+            /* Elevation Tokens */
+            --md-sys-elevation-level0: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+            --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+            --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+            --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+            --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+            --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--md-sys-color-surface);
+            min-height: 100vh;
+            color: var(--md-sys-color-on-surface);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        
+        .header {
+            background: var(--md-sys-color-surface-container-highest);
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--md-sys-elevation-level1);
+            text-align: center;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .card {
+            background: var(--md-sys-color-surface-container);
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--md-sys-elevation-level1);
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 14px;
+            letter-spacing: 0.1px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            background: var(--md-sys-color-surface-container-highest);
+            color: var(--md-sys-color-on-surface);
+            transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            border-width: 2px;
+            box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+        }
+        
+        input:hover, textarea:hover, select:hover {
+            border-color: var(--md-sys-color-on-surface);
+        }
+        
+        .btn {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+            margin: 4px;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--md-sys-elevation-level1);
+            text-transform: none;
+            letter-spacing: 0.1px;
+        }
+        
+        .btn:hover {
+            box-shadow: var(--md-sys-elevation-level2);
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+        
+        .btn-success {
+            background: var(--md-sys-color-tertiary);
+            color: var(--md-sys-color-on-tertiary);
+        }
+        
+        .btn-danger {
+            background: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+        }
+        
+        .btn-warning {
+            background: var(--md-sys-color-secondary);
+            color: var(--md-sys-color-on-secondary);
+        }
+        
+        .btn-outlined {
+            background: transparent;
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-outline);
+            box-shadow: none;
+        }
+        
+        .btn-outlined:hover {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border-color: var(--md-sys-color-primary);
+        }
+        
+        .location-info {
+            background: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 14px;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 16px 0;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            position: relative;
+            box-shadow: var(--md-sys-elevation-level2);
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 14px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+            word-wrap: break-word;
+        }
+        
+        .data-table th {
+            background: var(--md-sys-color-surface-container-high);
+            color: var(--md-sys-color-on-surface-variant);
+            font-weight: 500;
+            font-size: 12px;
+            letter-spacing: 0.1px;
+            text-transform: uppercase;
+        }
+        
+        .data-table td {
+            background: var(--md-sys-color-surface-container);
+            color: var(--md-sys-color-on-surface);
+        }
+        
+        .data-table tr:hover td {
+            background: var(--md-sys-color-surface-container-highest);
+        }
+        
+        .status {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .status.success {
+            background: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+            border-color: var(--md-sys-color-tertiary);
+        }
+        
+        .status.error {
+            background: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+            border-color: var(--md-sys-color-error);
+        }
+        
+        .status.info {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border-color: var(--md-sys-color-primary);
+        }
+        
+        .status.warning {
+            background: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            border-color: var(--md-sys-color-secondary);
+        }
+        
+        .offline-indicator {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            z-index: 1000;
+            box-shadow: var(--md-sys-elevation-level3);
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .offline-indicator.online {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+        
+        .offline-indicator.offline {
+            background: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+        }
+        
+        .tabs {
+            display: flex;
+            background: var(--md-sys-color-surface-variant);
+            border-radius: 28px 28px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding: 4px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--md-sys-color-on-surface-variant);
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            border-radius: 24px;
+            transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+            margin: 2px;
+        }
+        
+        .tab.active {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+        
+        .tab:hover:not(.active) {
+            background: var(--md-sys-color-surface-container-highest);
+            color: var(--md-sys-color-on-surface);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .spreadsheet-container {
+            overflow-x: auto;
+            background: var(--md-sys-color-surface-container);
+            border-radius: 16px;
+            box-shadow: var(--md-sys-elevation-level2);
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+        
+        .spreadsheet {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 1200px;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .spreadsheet th {
+            background: var(--md-sys-color-surface-container-high);
+            color: var(--md-sys-color-on-surface-variant);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            padding: 12px 8px;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            font-size: 11px;
+            letter-spacing: 0.1px;
+            text-transform: uppercase;
+        }
+        
+        .spreadsheet td {
+            border: 1px solid var(--md-sys-color-outline-variant);
+            padding: 8px;
+            vertical-align: top;
+            background: var(--md-sys-color-surface-container);
+        }
+        
+        .spreadsheet tr:hover td {
+            background: var(--md-sys-color-surface-container-highest);
+        }
+        
+        .spreadsheet input,
+        .spreadsheet select,
+        .spreadsheet textarea {
+            width: 100%;
+            border: none;
+            padding: 6px;
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+            background: transparent;
+            color: var(--md-sys-color-on-surface);
+            border-radius: 4px;
+        }
+        
+        .spreadsheet input:focus,
+        .spreadsheet select:focus,
+        .spreadsheet textarea:focus {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            outline: 2px solid var(--md-sys-color-primary);
+        }
+        
+        .spreadsheet .row-actions {
+            white-space: nowrap;
+        }
+        
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+            margin: 1px;
+        }
+        
+        .custom-ovitrampa-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+        
+        .header img {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .data-table {
+                font-size: 12px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 6px 4px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .map-container {
+                height: 250px;
+            }
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}</style></head>
+<body>
+    <div class="offline-indicator online" id="offlineIndicator">🌐 ONLINE</div>
+    
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;">
+                <img src="https://hatchcanvas.com/_/assets/ab_MGP-2kzMcvWlcFqruRGb1/keys/qbqXCiWuvB0tggZJAIrfr" alt="Ovitrampa" style="width: 60px; height: auto;">
+                <div>
+                    <h1 style="font-size: 28px; font-weight: 500; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">🦟 OviTrack</h1>
+                    <p style="font-size: 16px; color: var(--md-sys-color-on-surface-variant); font-weight: 400;">Coleta de dados geográficos em campo<br>Auxiliar no cadastramento de ovitrampas</p>
+                </div>
+            </div>
+            <div class="status info">
+                ⚡ Aplicativo preparado para uso sem internet
+            </div>
+        </div>
+        
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <img src="https://hatchcanvas.com/_/assets/ab_MGP-2kzMcvWlcFqruRGb1/keys/qbqXCiWuvB0tggZJAIrfr" alt="Ovitrampa" style="width: 32px; height: auto;">
+                <h2 style="font-size: 22px; font-weight: 500; color: var(--md-sys-color-on-surface); margin: 0;">📋 Novo Registro de Ovitrampa</h2>
+            </div>
+            <form id="dataForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="responsavelColeta">Responsável pela coleta dos dados *</label>
+                        <input type="text" id="responsavelColeta" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recolhimento">Recolhimento *</label>
+                        <select id="recolhimento" required="">
+                            <option value="">Selecione...</option>
+                            <option value="Instalação">Instalação</option>
+                            <option value="Troca de palheta">Troca de palheta</option>
+                            <option value="Remoção da armadilha">Remoção da armadilha</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="numeroId">Número de Identificação da Ovitrampa *</label>
+                        <input type="text" id="numeroId" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="responsavel">Responsável *</label>
+                        <input type="text" id="responsavel" required="">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bairro">Bairro *</label>
+                        <input type="text" id="bairro" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="setor">Setor/Distrito</label>
+                        <input type="text" id="setor">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rua">Rua/Logradouro *</label>
+                        <input type="text" id="rua" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número</label>
+                        <input type="text" id="numero">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento">
+                    </div>
+                    <div class="form-group">
+                        <label for="quarteirao">Quarteirão</label>
+                        <input type="text" id="quarteirao">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="localizacaoOvitrampa">Localização da Ovitrampa</label>
+                        <textarea id="localizacaoOvitrampa" rows="2" placeholder="Ex: Embaixo da árvore, ao lado do portão, etc."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="intercorrencias">Intercorrências</label>
+                        <select id="intercorrencias">
+                            <option value="">Selecione...</option>
+                            <option value="Ovitrampa vazia">Ovitrampa vazia</option>
+                            <option value="Ovitrampa estraviada">Ovitrampa estraviada</option>
+                            <option value="Responsável mudou a localização">Responsável mudou a localização</option>
+                            <option value="Ovitrampa danificada">Ovitrampa danificada</option>
+                            <option value="Presença de larvas">Presença de larvas</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="observacoes">Observações Gerais</label>
+                    <textarea id="observacoes" rows="4" placeholder="Descreva qualquer informação adicional relevante sobre a coleta, condições do local, detalhes sobre intercorrências, etc."></textarea>
+                </div>
+                
+                <div id="locationStatus" class="status info">
+                    📍 Clique em "Capturar Localização GPS" para obter coordenadas
+                </div>
+                
+                <div id="locationInfo" class="location-info" style="display: none;">
+                    <strong>📍 Coordenadas GPS capturadas:</strong><br>
+                    <span id="coordenadas"></span>
+                </div>
+                
+                <div class="map-container" id="mapContainer" style="display: none;">
+                    <div id="map"></div>
+                </div>
+                
+                <button type="button" class="btn" onclick="capturarLocalizacao()">
+                    📍 Capturar Localização GPS
+                </button>
+                
+                <button type="submit" class="btn btn-success">
+                    💾 Salvar Registro
+                </button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="abrirAba(&#39;resumo&#39;)">
+                    📊 Resumo (<span id="totalRegistros">1</span>)
+                </button>
+                <button class="tab" onclick="abrirAba(&#39;planilha&#39;)">
+                    📋 Planilha Editável
+                </button>
+            </div>
+            
+            <div style="background: var(--md-sys-color-surface-container); border-radius: 0 0 28px 28px; padding: 24px; border: 1px solid var(--md-sys-color-outline-variant); border-top: none;">
+                <!-- Aba Resumo -->
+                <div id="resumo" class="tab-content active">
+                    <div style="margin-bottom: 15px;">
+                        <button class="btn btn-success" onclick="exportarCSV()">
+                            📄 Exportar CSV
+                        </button>
+                        <button class="btn btn-success" onclick="exportarXLSX()">
+                            📊 Exportar Excel
+                        </button>
+
+                        <button class="btn btn-danger" onclick="limparDados()">
+                            🗑️ Limpar Todos
+                        </button>
+                    </div>
+                    
+                    <div id="tabelaRegistros">
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Coletor</th>
+                                <th>Recolhimento</th>
+                                <th>ID</th>
+                                <th>Responsável</th>
+                                <th>Bairro</th>
+                                <th>Endereço</th>
+                                <th>Intercorrências</th>
+                                <th>Observações</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            
+                    <tr>
+                        <td>22/06/2025, 16:07:42</td>
+                        <td>Johnny</td>
+                        <td><strong>Instalação</strong></td>
+                        <td>1</td>
+                        <td>Denir sueli</td>
+                        <td>Maravilha</td>
+                        <td>Estrada dos Quindins , 829</td>
+                        <td>N/A</td>
+                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="N/A">N/A</td>
+                        <td>-22.413164</td>
+                        <td>-43.392550</td>
+
+                        <td>
+                            <button class="btn" style="padding: 4px 8px; font-size: 11px; margin: 2px;" onclick="verDetalhes(1750619262837)">
+                                👁️
+                            </button>
+                            <button class="btn btn-danger" style="padding: 4px 8px; font-size: 11px; margin: 2px;" onclick="removerRegistro(1750619262837)">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                </tbody></table></div></div>
+                </div>
+                
+                <!-- Aba Planilha -->
+                <div id="planilha" class="tab-content">
+                    <div style="margin-bottom: 15px;">
+                        <button class="btn btn-success" onclick="salvarEdicoes()">
+                            💾 Salvar Todas as Edições
+                        </button>
+                        <button class="btn" onclick="cancelarEdicoes()">
+                            ❌ Cancelar Edições
+                        </button>
+                        <button class="btn btn-warning" onclick="adicionarLinhaVazia()">
+                            ➕ Adicionar Linha
+                        </button>
+                        <button class="btn btn-success" onclick="exportarXLSX()">
+                            📊 Exportar Excel
+                        </button>
+                    </div>
+                    
+                    <div class="spreadsheet-container">
+                        <table class="spreadsheet" id="spreadsheet">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Data/Hora</th>
+                                    <th style="width: 100px;">Coletor</th>
+                                    <th style="width: 120px;">Recolhimento</th>
+                                    <th style="width: 80px;">ID</th>
+                                    <th style="width: 100px;">Responsável</th>
+                                    <th style="width: 80px;">Bairro</th>
+                                    <th style="width: 80px;">Setor</th>
+                                    <th style="width: 120px;">Rua</th>
+                                    <th style="width: 60px;">Número</th>
+                                    <th style="width: 100px;">Complemento</th>
+                                    <th style="width: 80px;">Quarteirão</th>
+                                    <th style="width: 150px;">Localização Ovitrampa</th>
+                                    <th style="width: 130px;">Intercorrências</th>
+                                    <th style="width: 200px;">Observações</th>
+                                    <th style="width: 90px;">Latitude</th>
+                                    <th style="width: 90px;">Longitude</th>
+                                    <th style="width: 80px;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="spreadsheetBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Leaflet JS para mapas -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+
+    
+    <script type="module">
+        let currentLocation = null;
+        let map = null;
+        let marker = null;
+        let registros = JSON.parse(localStorage.getItem('ovitrampasRegistros')) || [];
+        
+        // Atualizar display ao carregar
+        atualizarTabela();
+        monitorarConexao();
+        
+        // Monitorar status de conexão
+        function monitorarConexao() {
+            const indicator = document.getElementById('offlineIndicator');
+            
+            function updateStatus() {
+                if (navigator.onLine) {
+                    indicator.textContent = '🌐 ONLINE';
+                    indicator.className = 'offline-indicator online';
+                } else {
+                    indicator.textContent = '📱 OFFLINE';
+                    indicator.className = 'offline-indicator offline';
+                }
+            }
+            
+            window.addEventListener('online', updateStatus);
+            window.addEventListener('offline', updateStatus);
+            updateStatus();
+        }
+        
+        // Função para inicializar o mapa
+        function inicializarMapa(lat, lng) {
+            const mapContainer = document.getElementById('mapContainer');
+            mapContainer.style.display = 'block';
+            
+            // Aguardar um momento para o container estar visível
+            setTimeout(() => {
+                if (map) {
+                    map.remove();
+                }
+                
+                try {
+                    // Inicializar mapa
+                    map = L.map('map').setView([lat, lng], 16);
+                    
+                    // Usar OpenStreetMap que funciona offline se já carregado
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 19
+                    }).addTo(map);
+                    
+                    // Adicionar marcador
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                    
+                    // Criar ícone customizado para o marcador
+                    const ovitrampIcon = L.divIcon({
+                        html: `<div style="background: white; padding: 3px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                                   <img src="qbqXCiWuvB0tggZJAIrfr" style="width: 24px; height: 24px;">
+                               </div>`,
+                        className: 'custom-ovitrampa-icon',
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 15]
+                    });
+                    
+                    marker = L.marker([lat, lng], { icon: ovitrampIcon }).addTo(map)
+                        .bindPopup(`📍 Localização da Ovitrampa<br>Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`)
+                        .openPopup();
+                    
+                    // Forçar redimensionamento do mapa
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 100);
+                    
+                } catch (error) {
+                    console.error('Erro ao inicializar mapa:', error);
+                    document.getElementById('mapContainer').innerHTML = `
+                        <div style="padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
+                            🗺️ Mapa indisponível<br>
+                            <small>Coordenadas: ${lat.toFixed(6)}, ${lng.toFixed(6)}</small>
+                        </div>
+                    `;
+                }
+            }, 100);
+        }
+        
+        // Função para capturar localização
+        window.capturarLocalizacao = function() {
+            const status = document.getElementById('locationStatus');
+            status.className = 'status info';
+            status.textContent = '🔍 Obtendo localização GPS...';
+            
+            if (!navigator.geolocation) {
+                status.className = 'status error';
+                status.textContent = '❌ Geolocalização não suportada neste dispositivo';
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    status.className = 'status success';
+                    status.textContent = '✅ Localização GPS capturada com sucesso!';
+                    
+                    const locationInfo = document.getElementById('locationInfo');
+                    const coordenadas = document.getElementById('coordenadas');
+                    
+                    coordenadas.innerHTML = `
+                        <strong>Latitude:</strong> ${currentLocation.latitude.toFixed(6)}<br>
+                        <strong>Longitude:</strong> ${currentLocation.longitude.toFixed(6)}<br>
+                        <strong>Precisão:</strong> ${Math.round(currentLocation.accuracy)} metros<br>
+                        <strong>Capturado em:</strong> ${new Date(currentLocation.timestamp).toLocaleString('pt-BR')}
+                    `;
+                    
+                    locationInfo.style.display = 'block';
+                    
+                    // Inicializar mapa com a localização
+                    inicializarMapa(currentLocation.latitude, currentLocation.longitude);
+                },
+                (error) => {
+                    status.className = 'status error';
+                    let errorMsg = '❌ Erro ao obter localização GPS: ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg += 'Permissão negada. Habilite a localização nas configurações.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg += 'Localização indisponível. Verifique se o GPS está ativo.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg += 'Tempo limite excedido. Tente novamente.';
+                            break;
+                        default:
+                            errorMsg += 'Erro desconhecido.';
+                            break;
+                    }
+                    status.textContent = errorMsg;
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 30000
+                }
+            );
+        };
+        
+        // Handle form submission
+        document.getElementById('dataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!currentLocation) {
+                alert('⚠️ Por favor, capture a localização GPS primeiro!');
+                return;
+            }
+            
+            const registro = {
+                id: Date.now(),
+                responsavelColeta: document.getElementById('responsavelColeta').value,
+                recolhimento: document.getElementById('recolhimento').value,
+                numeroId: document.getElementById('numeroId').value,
+                responsavel: document.getElementById('responsavel').value,
+                bairro: document.getElementById('bairro').value,
+                setor: document.getElementById('setor').value,
+                rua: document.getElementById('rua').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                quarteirao: document.getElementById('quarteirao').value,
+                localizacaoOvitrampa: document.getElementById('localizacaoOvitrampa').value,
+                intercorrencias: document.getElementById('intercorrencias').value,
+                observacoes: document.getElementById('observacoes').value,
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                accuracy: currentLocation.accuracy,
+                dataHora: new Date().toLocaleString('pt-BR'),
+                timestamp: currentLocation.timestamp
+            };
+            
+            registros.push(registro);
+            localStorage.setItem('ovitrampasRegistros', JSON.stringify(registros));
+            
+            // Limpar formulário
+            this.reset();
+            currentLocation = null;
+            document.getElementById('locationInfo').style.display = 'none';
+            document.getElementById('mapContainer').style.display = 'none';
+            document.getElementById('locationStatus').className = 'status info';
+            document.getElementById('locationStatus').textContent = '📍 Clique em "Capturar Localização GPS" para obter coordenadas';
+            
+            atualizarTabela();
+            
+            // Feedback
+            const status = document.getElementById('locationStatus');
+            status.className = 'status success';
+            status.textContent = '✅ Registro de ovitrampa salvo com sucesso!';
+            setTimeout(() => {
+                status.className = 'status info';
+                status.textContent = '📍 Clique em "Capturar Localização GPS" para obter coordenadas';
+            }, 3000);
+        });
+        
+        // Função para atualizar tabela
+        function atualizarTabela() {
+            const tabela = document.getElementById('tabelaRegistros');
+            const total = document.getElementById('totalRegistros');
+            
+            total.textContent = registros.length;
+            
+            if (registros.length === 0) {
+                tabela.innerHTML = `
+                    <div style="text-align: center; color: #666; padding: 40px;">
+                        <img src="qbqXCiWuvB0tggZJAIrfr" alt="Ovitrampa" style="width: 80px; height: auto; opacity: 0.3; margin-bottom: 15px;">
+                        <p>📝 Nenhum registro de ovitrampa encontrado</p>
+                        <p style="font-size: 14px; margin-top: 10px;">Comece adicionando um novo registro acima</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Coletor</th>
+                                <th>Recolhimento</th>
+                                <th>ID</th>
+                                <th>Responsável</th>
+                                <th>Bairro</th>
+                                <th>Endereço</th>
+                                <th>Intercorrências</th>
+                                <th>Observações</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            registros.slice(-15).reverse().forEach(registro => {
+                const endereco = `${registro.rua}${registro.numero ? ', ' + registro.numero : ''}`;
+
+                
+                html += `
+                    <tr>
+                        <td>${registro.dataHora}</td>
+                        <td>${registro.responsavelColeta}</td>
+                        <td><strong>${registro.recolhimento}</strong></td>
+                        <td>${registro.numeroId}</td>
+                        <td>${registro.responsavel}</td>
+                        <td>${registro.bairro}</td>
+                        <td>${endereco}</td>
+                        <td>${registro.intercorrencias || 'N/A'}</td>
+                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${registro.observacoes || 'N/A'}">${registro.observacoes || 'N/A'}</td>
+                        <td>${registro.latitude.toFixed(6)}</td>
+                        <td>${registro.longitude.toFixed(6)}</td>
+
+                        <td>
+                            <button class="btn" style="padding: 4px 8px; font-size: 11px; margin: 2px;" 
+                                    onclick="verDetalhes(${registro.id})">
+                                👁️
+                            </button>
+                            <button class="btn btn-danger" style="padding: 4px 8px; font-size: 11px; margin: 2px;" 
+                                    onclick="removerRegistro(${registro.id})">
+                                🗑️
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table></div>';
+            
+            if (registros.length > 15) {
+                html += `<p style="text-align: center; margin-top: 10px; color: #666; font-size: 12px;">
+                    📋 Mostrando os 15 registros mais recentes
+                </p>`;
+            }
+            
+            tabela.innerHTML = html;
+        }
+        
+        // Função para ver detalhes
+        window.verDetalhes = function(id) {
+            const registro = registros.find(r => r.id === id);
+            if (!registro) return;
+            
+            const detalhes = `
+Responsável pela coleta: ${registro.responsavelColeta}
+Recolhimento: ${registro.recolhimento}
+ID: ${registro.numeroId}
+Responsável: ${registro.responsavel}
+Bairro: ${registro.bairro}
+Setor: ${registro.setor || 'N/A'}
+Endereço: ${registro.rua}${registro.numero ? ', ' + registro.numero : ''}
+Complemento: ${registro.complemento || 'N/A'}
+Quarteirão: ${registro.quarteirao || 'N/A'}
+Localização: ${registro.localizacaoOvitrampa || 'N/A'}
+Intercorrências: ${registro.intercorrencias || 'N/A'}
+Observações: ${registro.observacoes || 'N/A'}
+Coordenadas: ${registro.latitude.toFixed(6)}, ${registro.longitude.toFixed(6)}
+Precisão: ${Math.round(registro.accuracy)}m
+Data/Hora: ${registro.dataHora}
+            `;
+            
+            alert(detalhes);
+        };
+        
+        // Função para remover registro
+        window.removerRegistro = function(id) {
+            if (confirm('⚠️ Deseja realmente remover este registro de ovitrampa?')) {
+                registros = registros.filter(r => r.id !== id);
+                localStorage.setItem('ovitrampasRegistros', JSON.stringify(registros));
+                atualizarTabela();
+            }
+        };
+        
+        // Função para limpar todos os dados
+        window.limparDados = function() {
+            if (confirm('⚠️ Deseja realmente remover TODOS os registros? Esta ação não pode ser desfeita.')) {
+                registros = [];
+                localStorage.removeItem('ovitrampasRegistros');
+                atualizarTabela();
+            }
+        };
+        
+
+        
+        // Função para exportar XLSX (Excel)
+        window.exportarXLSX = function() {
+            if (registros.length === 0) {
+                alert('⚠️ Não há registros para exportar!');
+                return;
+            }
+            
+            // Preparar dados para o Excel
+            const dadosExcel = registros.map(registro => ({
+                'Data/Hora': registro.dataHora,
+                'Responsável pela Coleta': registro.responsavelColeta,
+                'Recolhimento': registro.recolhimento,
+                'ID Ovitrampa': registro.numeroId,
+                'Responsável': registro.responsavel,
+                'Bairro': registro.bairro,
+                'Setor/Distrito': registro.setor || '',
+                'Rua': registro.rua,
+                'Número': registro.numero || '',
+                'Complemento': registro.complemento || '',
+                'Quarteirão': registro.quarteirao || '',
+                'Localização Ovitrampa': registro.localizacaoOvitrampa || '',
+                'Intercorrências': registro.intercorrencias || '',
+                'Observações': registro.observacoes || '',
+                'Latitude': registro.latitude,
+                'Longitude': registro.longitude,
+                'Precisão (m)': Math.round(registro.accuracy)
+            }));
+            
+            // Criar workbook e worksheet
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.json_to_sheet(dadosExcel);
+            
+            // Definir larguras das colunas para melhor visualização
+            const colWidths = [
+                { wch: 18 }, // Data/Hora
+                { wch: 20 }, // Responsável pela Coleta
+                { wch: 18 }, // Recolhimento
+                { wch: 12 }, // ID Ovitrampa
+                { wch: 15 }, // Responsável
+                { wch: 15 }, // Bairro
+                { wch: 15 }, // Setor/Distrito
+                { wch: 25 }, // Rua
+                { wch: 8 },  // Número
+                { wch: 15 }, // Complemento
+                { wch: 12 }, // Quarteirão
+                { wch: 30 }, // Localização Ovitrampa
+                { wch: 20 }, // Intercorrências
+                { wch: 40 }, // Observações
+                { wch: 12 }, // Latitude
+                { wch: 12 }, // Longitude
+                { wch: 10 }  // Precisão
+            ];
+            
+            ws['!cols'] = colWidths;
+            
+            // Adicionar formatação ao cabeçalho
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            for (let col = range.s.c; col <= range.e.c; col++) {
+                const cellRef = XLSX.utils.encode_cell({ r: 0, c: col });
+                if (!ws[cellRef]) continue;
+                
+                ws[cellRef].s = {
+                    font: { bold: true, color: { rgb: "FFFFFF" } },
+                    fill: { fgColor: { rgb: "00796B" } },
+                    alignment: { horizontal: "center", vertical: "center" }
+                };
+            }
+            
+            // Adicionar worksheet ao workbook
+            XLSX.utils.book_append_sheet(wb, ws, "Registros de Ovitrampas");
+            
+            // Adicionar informações extras em uma segunda aba
+            const infoData = [
+                ['Relatório de Coleta de Ovitrampas', ''],
+                ['', ''],
+                ['Data de Exportação:', new Date().toLocaleString('pt-BR')],
+                ['Total de Registros:', registros.length],
+                ['', ''],
+                ['Resumo por Tipo de Recolhimento:', ''],
+                ['Instalação:', registros.filter(r => r.recolhimento === 'Instalação').length],
+                ['Troca de palheta:', registros.filter(r => r.recolhimento === 'Troca de palheta').length],
+                ['Remoção da armadilha:', registros.filter(r => r.recolhimento === 'Remoção da armadilha').length],
+                ['', ''],
+                ['Aplicativo:', 'OviTrack v1.0'],
+                ['Desenvolvido para:', 'Coleta de dados geográficos em campo']
+            ];
+            
+            const wsInfo = XLSX.utils.aoa_to_sheet(infoData);
+            
+            // Formatação da aba de informações
+            wsInfo['!cols'] = [{ wch: 25 }, { wch: 15 }];
+            
+            // Adicionar aba de informações
+            XLSX.utils.book_append_sheet(wb, wsInfo, "Informações");
+            
+            // Gerar nome do arquivo com data
+            const nomeArquivo = `ovitrampas-${new Date().toISOString().split('T')[0]}.xlsx`;
+            
+            // Fazer download do arquivo
+            XLSX.writeFile(wb, nomeArquivo);
+            
+            // Feedback
+            setTimeout(() => {
+                alert(`📊 Arquivo Excel exportado com sucesso!\n\n✅ Arquivo: ${nomeArquivo}\n📋 ${registros.length} registros exportados\n📊 2 abas: Dados + Informações`);
+            }, 500);
+        };
+        
+        // Função para exportar CSV
+        window.exportarCSV = function() {
+            if (registros.length === 0) {
+                alert('⚠️ Não há registros para exportar!');
+                return;
+            }
+            
+            let csv = 'Data_Hora,Responsável_Coleta,Recolhimento,ID_Ovitrampa,Responsável,Bairro,Setor_Distrito,Rua,Número,Complemento,Quarteirão,Localização_Ovitrampa,Intercorrências,Observações,Latitude,Longitude,Precisão_m\n';
+            
+            registros.forEach(registro => {
+                csv += `"${registro.dataHora}","${registro.responsavelColeta}","${registro.recolhimento}","${registro.numeroId}","${registro.responsavel}","${registro.bairro}","${registro.setor || ''}","${registro.rua}","${registro.numero || ''}","${registro.complemento || ''}","${registro.quarteirao || ''}","${registro.localizacaoOvitrampa || ''}","${registro.intercorrencias || ''}","${registro.observacoes || ''}",${registro.latitude},${registro.longitude},${Math.round(registro.accuracy)}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `ovitrampas-${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Feedback
+            setTimeout(() => {
+                alert('📄 Arquivo CSV exportado com sucesso!');
+            }, 500);
+        };
+        
+
+        
+        // Função para alternar entre abas
+        window.abrirAba = function(aba) {
+            // Remover classe active de todas as abas
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Ativar aba selecionada
+            event.target.classList.add('active');
+            document.getElementById(aba).classList.add('active');
+            
+            if (aba === 'planilha') {
+                atualizarPlanilha();
+            }
+        };
+        
+        // Função para atualizar planilha editável
+        function atualizarPlanilha() {
+            const tbody = document.getElementById('spreadsheetBody');
+            
+            if (registros.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="16" style="text-align: center; padding: 40px; color: #666;">
+                            <img src="qbqXCiWuvB0tggZJAIrfr" alt="Ovitrampa" style="width: 60px; height: auto; opacity: 0.3; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
+                            📝 Nenhum registro encontrado
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            registros.forEach((registro, index) => {
+                html += `
+                    <tr data-id="${registro.id}">
+                        <td><input type="text" value="${registro.dataHora}" data-field="dataHora" readonly style="background: #f8f9fa;"></td>
+                        <td><input type="text" value="${registro.responsavelColeta}" data-field="responsavelColeta"></td>
+                        <td>
+                            <select data-field="recolhimento">
+                                <option value="Instalação" ${registro.recolhimento === 'Instalação' ? 'selected' : ''}>Instalação</option>
+                                <option value="Troca de palheta" ${registro.recolhimento === 'Troca de palheta' ? 'selected' : ''}>Troca de palheta</option>
+                                <option value="Remoção da armadilha" ${registro.recolhimento === 'Remoção da armadilha' ? 'selected' : ''}>Remoção da armadilha</option>
+                            </select>
+                        </td>
+                        <td><input type="text" value="${registro.numeroId}" data-field="numeroId"></td>
+                        <td><input type="text" value="${registro.responsavel}" data-field="responsavel"></td>
+                        <td><input type="text" value="${registro.bairro}" data-field="bairro"></td>
+                        <td><input type="text" value="${registro.setor || ''}" data-field="setor"></td>
+                        <td><input type="text" value="${registro.rua}" data-field="rua"></td>
+                        <td><input type="text" value="${registro.numero || ''}" data-field="numero"></td>
+                        <td><input type="text" value="${registro.complemento || ''}" data-field="complemento"></td>
+                        <td><input type="text" value="${registro.quarteirao || ''}" data-field="quarteirao"></td>
+                        <td><textarea rows="2" data-field="localizacaoOvitrampa">${registro.localizacaoOvitrampa || ''}</textarea></td>
+                        <td>
+                            <select data-field="intercorrencias">
+                                <option value="" ${!registro.intercorrencias ? 'selected' : ''}>Selecione...</option>
+                                <option value="Ovitrampa vazia" ${registro.intercorrencias === 'Ovitrampa vazia' ? 'selected' : ''}>Ovitrampa vazia</option>
+                                <option value="Ovitrampa estraviada" ${registro.intercorrencias === 'Ovitrampa estraviada' ? 'selected' : ''}>Ovitrampa estraviada</option>
+                                <option value="Responsável mudou a localização" ${registro.intercorrencias === 'Responsável mudou a localização' ? 'selected' : ''}>Responsável mudou a localização</option>
+                                <option value="Ovitrampa danificada" ${registro.intercorrencias === 'Ovitrampa danificada' ? 'selected' : ''}>Ovitrampa danificada</option>
+                                <option value="Presença de larvas" ${registro.intercorrencias === 'Presença de larvas' ? 'selected' : ''}>Presença de larvas</option>
+                                <option value="Outro" ${registro.intercorrencias === 'Outro' ? 'selected' : ''}>Outro</option>
+                            </select>
+                        </td>
+                        <td><textarea rows="3" data-field="observacoes" style="resize: vertical;">${registro.observacoes || ''}</textarea></td>
+                        <td><input type="number" step="0.000001" value="${registro.latitude}" data-field="latitude"></td>
+                        <td><input type="number" step="0.000001" value="${registro.longitude}" data-field="longitude"></td>
+                        <td class="row-actions">
+                            <button class="btn btn-danger btn-small" onclick="removerRegistroPlanilha(${registro.id})">🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+        
+        // Função para adicionar linha vazia
+        window.adicionarLinhaVazia = function() {
+            const novoId = Date.now();
+            const novoRegistro = {
+                id: novoId,
+                responsavelColeta: '',
+                recolhimento: 'Instalação',
+                numeroId: '',
+                responsavel: '',
+                bairro: '',
+                setor: '',
+                rua: '',
+                numero: '',
+                complemento: '',
+                quarteirao: '',
+                localizacaoOvitrampa: '',
+                intercorrencias: '',
+                observacoes: '',
+                latitude: 0,
+                longitude: 0,
+                accuracy: 0,
+                dataHora: new Date().toLocaleString('pt-BR'),
+                timestamp: new Date().toISOString()
+            };
+            
+            registros.push(novoRegistro);
+            atualizarPlanilha();
+            
+            // Scroll para a nova linha
+            const tbody = document.getElementById('spreadsheetBody');
+            tbody.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        };
+        
+        // Função para salvar todas as edições
+        window.salvarEdicoes = function() {
+            const linhas = document.querySelectorAll('#spreadsheetBody tr[data-id]');
+            let alteracoes = 0;
+            
+            linhas.forEach(linha => {
+                const id = parseInt(linha.dataset.id);
+                const registro = registros.find(r => r.id === id);
+                if (!registro) return;
+                
+                const campos = linha.querySelectorAll('[data-field]');
+                let houveAlteracao = false;
+                
+                campos.forEach(campo => {
+                    const nomeField = campo.dataset.field;
+                    let novoValor = campo.value;
+                    
+                    // Converter números
+                    if (nomeField === 'latitude' || nomeField === 'longitude') {
+                        novoValor = parseFloat(novoValor) || 0;
+                    }
+                    
+                    if (registro[nomeField] !== novoValor) {
+                        registro[nomeField] = novoValor;
+                        houveAlteracao = true;
+                    }
+                });
+                
+                if (houveAlteracao) {
+                    alteracoes++;
+                }
+            });
+            
+            // Salvar no localStorage
+            localStorage.setItem('ovitrampasRegistros', JSON.stringify(registros));
+            
+            // Atualizar resumo
+            atualizarTabela();
+            
+            // Feedback
+            if (alteracoes > 0) {
+                alert(`✅ ${alteracoes} registro(s) foram atualizados com sucesso!`);
+            } else {
+                alert('ℹ️ Nenhuma alteração foi detectada.');
+            }
+        };
+        
+        // Função para cancelar edições
+        window.cancelarEdicoes = function() {
+            if (confirm('⚠️ Deseja cancelar todas as edições não salvas?')) {
+                atualizarPlanilha(); // Recarregar dados originais
+            }
+        };
+        
+        // Função para remover registro da planilha
+        window.removerRegistroPlanilha = function(id) {
+            if (confirm('⚠️ Deseja realmente remover este registro?')) {
+                registros = registros.filter(r => r.id !== id);
+                localStorage.setItem('ovitrampasRegistros', JSON.stringify(registros));
+                atualizarPlanilha();
+                atualizarTabela();
+            }
+        };
+        
+        window.atualizarTabela = atualizarTabela;
+    </script>
+
+</body></html>
